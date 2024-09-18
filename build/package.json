@@ -1,0 +1,21 @@
+{
+  "name": "test-web-error",
+  "version": "1.0.0",
+  "description": "用于本地调试",
+  "main": "index.umd.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silin001/web-error-tracker"
+  },
+  "keywords": [
+    "web-error-tracker",
+    "web-error",
+    "tracker"
+  ],
+  "author": "sisi",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.0.0"
+  }
+}
