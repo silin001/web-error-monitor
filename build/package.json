@@ -1,5 +1,5 @@
 {
-  "name": "test-web-error",
+  "name": "test-web-error-tracker",
   "version": "1.0.0",
   "description": "用于本地调试",
   "main": "index.umd.js",

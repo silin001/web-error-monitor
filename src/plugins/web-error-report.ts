@@ -1,23 +1,14 @@
 /*
  * @Date: 2024-09-18 16:11:58
- * @LastEditTime: 2024-09-18 16:53:33
- * @Description:
+ * @LastEditTime: 2024-09-18 17:32:29
+ * @Description:错误监控处理
  * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/src/plugins/web-error-report.ts
  */
 
-/*
- * @Date: 2024-09-18 15:24:59
- * @LastEditTime: 2024-09-18 16:02:41
- * @Description: 错误监控处理
- * @FilePath: /my-v3ts-project/src/errorReport.js
- */
-// import Vue from "vue";
+import { ErrorReportType } from "../type/index";
 import TraceKit from "tracekit";
 import { getCurrentTime } from "../utils/tools";
 
-export const isProduction = process.env.NODE_ENV === "development";
-
-const imgUrl = "/sem/sourcemap/img?data=";
 /**
  * @description: 格式化错误信息
  * @param {*} type
@@ -41,26 +32,15 @@ export function formatErrorDatas(type, message, stack) {
   return obj;
 }
 
-/**
- * @description: 通过img方式进行错误信息上报
- * @param {*} datas
- * @return {*}
- */
-export function reportViaImg(datas) {
-  const img = new Image(1, 1);
-  // 服务接口
-  // '/sem' // 简称（系统错误监控 System Error Monitoring）
-  // nginx已经 匹配 /sem  代理到：http://127.0.0.1:4000/sem
-  const url = imgUrl;
-  img.src = url + JSON.stringify(datas);
-}
-
 /* 主类，必须接收一个 Vue实例  */
 export class ErrorReport {
   options;
+  reportApi;
   vueExample;
-  constructor(options) {
+  constructor(options: ErrorReportType) {
     this.options = options;
+    // "/sem/sourcemap/img?data=";
+    this.reportApi = options.reportApi;
     this.vueExample = options.vue;
     console.log("项目分类---", options.module);
     this.init();
@@ -93,8 +73,22 @@ export class ErrorReport {
       // vue、js错误
       const datas = formatErrorDatas(3, message, stacks);
       // 上报
-      reportViaImg(datas);
+      this.reportViaImg(datas);
     });
+  }
+
+  /**
+   * @description: 通过img方式进行错误信息上报
+   * @param {*} datas
+   * @return {*}
+   */
+  reportViaImg(datas) {
+    const img = new Image(1, 1);
+    // 服务接口
+    // '/sem' // 简称（系统错误监控 System Error Monitoring）
+    // nginx已经 匹配 /sem  代理到：http://127.0.0.1:4000/sem
+    const url = this.reportApi;
+    img.src = url + JSON.stringify(datas);
   }
 
   // vue框架错误监听, 使用try让错误不在控制台显示，因为要交给TraceKit处理
@@ -185,7 +179,7 @@ export class ErrorReport {
           const msg = `资源错误:在[${obj.routePath}]路由中发现,值为[${obj.path}]`;
 
           // 上报资源错误数据
-          reportViaImg(formatErrorDatas(2, msg, obj));
+          this.reportViaImg(formatErrorDatas(2, msg, obj));
         } else {
           console.log("非资源加载错误", event);
         }
@@ -252,6 +246,5 @@ export class ErrorReport {
 }
 
 export default {
-  isProduction,
   ErrorReport,
 };

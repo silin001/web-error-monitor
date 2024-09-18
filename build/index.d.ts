@@ -1,7 +1,13 @@
 declare const test = "=======>  typescript  plugin-zip-pack...";
 declare const deepClone: (obj: Object) => object;
 
-declare const isProduction: boolean;
+/** 数据上报主类 options 参数 */
+type ErrorReportType = {
+    reportApi: string;
+    vue: object;
+    module: string;
+};
+
 /**
  * @description: 格式化错误信息
  * @param {*} type
@@ -15,22 +21,23 @@ declare function formatErrorDatas(type: any, message: any, stack: any): {
     stack: any;
     date: string;
 };
-/**
- * @description: 通过img方式进行错误信息上报
- * @param {*} datas
- * @return {*}
- */
-declare function reportViaImg(datas: any): void;
 declare class ErrorReport {
     options: any;
+    reportApi: any;
     vueExample: any;
-    constructor(options: any);
+    constructor(options: ErrorReportType);
     init(): void;
     /**
      * @description: 使用TraceKit工具对错误信息统一格式化后上报
      * @return {*}
      */
     formatErrorInfo(): void;
+    /**
+     * @description: 通过img方式进行错误信息上报
+     * @param {*} datas
+     * @return {*}
+     */
+    reportViaImg(datas: any): void;
     vueErrorHandler(): void;
     resourceStatus(imageUrl: any): Promise<{
         status: number;
@@ -42,4 +49,4 @@ declare class ErrorReport {
     promiseError(): void;
 }
 
-export { ErrorReport, deepClone, formatErrorDatas, isProduction, reportViaImg, test };
+export { ErrorReport, deepClone, formatErrorDatas, test };
