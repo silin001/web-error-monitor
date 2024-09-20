@@ -59,7 +59,13 @@ declare class ErrorReport {
     promiseError(): void;
 }
 
+/** 支持webpack打包后产物类插件 */
+declare class SourceMapUploaderWebpack {
+    private options;
+    constructor(options: SourceMapUploaderType);
+    apply(compiler: any): void;
+}
 /** 支持vite 源码文件上传 */
 declare const sourceMapUploaderVite: (options: SourceMapUploaderType) => VitePluginsType;
 
-export { ErrorReport, deepClone, formatErrorDatas, sourceMapUploaderVite, test };
+export { ErrorReport, SourceMapUploaderWebpack, deepClone, formatErrorDatas, sourceMapUploaderVite, test };

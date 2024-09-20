@@ -1,9 +1,10 @@
 export declare class SourceMapHandler {
     outputPath: any;
     jsmapsDir: any;
-    constructor();
-    init(): void;
-    getJsmaps(outputPath: any): Promise<any[]>;
+    packTools: any;
+    constructor(packTools: any);
+    viteWayInit(): void;
+    getJsmaps(outputPath: any): Promise<any>;
     moveJsMaps(jsmaps: any, outputPath: any, mapsDir: any): Promise<void>;
     createDir(mapsDir: any): void;
     removeDir(dirname: any): void;
@@ -16,4 +17,3 @@ export declare class SourceMapHandler {
  */
 export declare const sourceUpload: (assets: any, outputPath: any, uploadURL: any, storageDir: any) => Promise<void>;
 export declare function formatMapsList(jsmapList: any, outputPath: any): any;
-export declare function formatFileName(filePath: any): any;

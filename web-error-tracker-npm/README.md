@@ -1,9 +1,8 @@
-
 # 插件简介
 
-`plugin-zip-pack` 源码使用ts编写（1.0.17版本前js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包。
+`plugin-zip-pack` 源码使用 ts 编写（1.0.17 版本前 js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包。
 
-- 新增打包结果推送消息到微信（需关注虾推啥公众号、获取token）
+- 新增打包结果推送消息到微信（需关注虾推啥公众号、获取 token）
 
 # 安装
 
@@ -25,8 +24,7 @@
 
 ```
 
-
-# 使用（1.0.17版本）
+# 使用（1.0.17 版本）
 
 - vite
 
@@ -37,7 +35,7 @@ const { pluginZipPackVite } = require("plugin-zip-pack");
 export default defineConfig({
   plugins: [
     pluginZipPackVite({
-      optZipName: '测试包',
+      optZipName: "测试包",
     }),
   ],
 });
@@ -50,18 +48,21 @@ export default defineConfig({
 const { PluginZipPackWebpack } = require("plugin-zip-pack");
 
 module.exports = {
-    configureWebpack: {
-        plugins: [
-            new PluginZipPackWebpack({
-                optZipName: 'xxxpc端'
-            })
-        ]
-    }
+  configureWebpack: {
+    plugins: [
+      new PluginZipPackWebpack({
+        optZipName: "xxxpc端",
+      }),
+    ],
+    output: {
+      // 指定打包 jsmap文件到
+      sourceMapFilename: "../dist-jsmaps/[name].js.map",
+    },
+  },
 };
 ```
 
-
-# 使用（1.0.17版本前）
+# 使用（1.0.17 版本前）
 
 - vite
 
@@ -71,9 +72,9 @@ const { vitePluginZipPack } = require("plugin-zip-pack");
 export default defineConfig({
   plugins: [
     vitePluginZipPack({
-      optZipName: '测试包',
-      targetDir: 'public',
-      enable: false
+      optZipName: "测试包",
+      targetDir: "public",
+      enable: false,
     }),
   ],
 });
@@ -86,12 +87,12 @@ export default defineConfig({
 const { WebpackPluginZipPack } = require("plugin-zip-pack");
 
 module.exports = {
-    configureWebpack: {
-        plugins: [
-            new WebpackPluginZipPack({
-                optZipName: 'xxxpc端'
-            })
-        ]
-    }
+  configureWebpack: {
+    plugins: [
+      new WebpackPluginZipPack({
+        optZipName: "xxxpc端",
+      }),
+    ],
+  },
 };
 ```

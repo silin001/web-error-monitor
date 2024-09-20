@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-09-16 09:40:12
- * @LastEditTime: 2024-09-20 10:20:51
+ * @LastEditTime: 2024-09-20 14:26:08
  * @Description: SourceMap 源码文件上传、导出支持webpack、vite的产物
  * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/src/plugins/sourcemap-uploader/sourcemap-uploader.ts
  */
@@ -9,21 +9,24 @@ const path = require("path");
 import { httpPost } from "../../http/index";
 import { ApiResponse } from "../../type/index";
 
-//
-
 /* 处理vite打包后的源映射文件 */
 export class SourceMapHandler {
   outputPath;
   jsmapsDir;
-  constructor() {
-    this.init();
+  packTools;
+  constructor(packTools) {
+    this.packTools = packTools;
+    // 定义存储map文件的jsmapsDir路径
+    this.jsmapsDir = path.resolve(process.cwd(), "dist-jsmaps");
+    // 如果是vite工具打包则创建 dist-jsmaps文件夹
+    if (this.packTools === "vite") {
+      this.viteWayInit();
+    }
   }
   // 初始化
-  init() {
+  viteWayInit() {
     // 确定输出目录
     this.outputPath = path.resolve(process.cwd(), "dist/assets");
-    // 创建存储map文件的jsmapsDir
-    this.jsmapsDir = path.resolve(process.cwd(), "dist-jsmaps");
     this.createDir(this.jsmapsDir);
   }
   // 获取vite打包后dist下 assets下的 所有jsmap
@@ -31,8 +34,7 @@ export class SourceMapHandler {
     // 读取输出目录下的所有文件
     const assets = await fs.promises.readdir(outputPath);
     // 过滤 jsmap
-    const assetsArray = Array.isArray(assets) ? assets : Object.keys(assets);
-    const jsmaps = assetsArray.filter((i) => i.endsWith(".js.map"));
+    const jsmaps = assets.filter((i) => i.endsWith(".js.map"));
     return jsmaps;
   }
 
@@ -111,23 +113,10 @@ export const sourceUpload = async (
     storageDir,
   };
   try {
-    // TODO sourcemap 文件上传
     const result = (await httpPost(uploadURL, params)) as ApiResponse;
     console.log("上传完成->", result);
     if (result.code === 200) {
       console.log(result.data.msg);
-
-      //     // 删除源文件、因为前端包不需要
-      //     // const pathStr = path.join(__dirname,
-      //     //   '../',
-      //     //   '/dist/maps')
-      //     // TODO  dits文件夹不在vscode中显示
-      //     // console.log('-==', pathStr)
-      //     // fs.rmdirSync(pathStr)
-      //     // fs.unlink(pathStr, (err) => {
-      //     //   if (err) throw err
-      //     //   console.log('已成功删除文件')
-      //     // })
     }
   } catch (error) {
     console.error(`错误: ${error}`);
@@ -140,13 +129,8 @@ export function formatMapsList(jsmapList, outputPath) {
     const filePath = path.join(outputPath, fileName);
     const fileContent = fs.readFileSync(filePath, "utf8");
     return {
-      fileName: formatFileName(fileName),
+      fileName,
       fileContent,
     };
   });
-}
-
-/* 处理 feilename， 如果是webpack 配置了一层 maps文件夹 需要去掉 */
-export function formatFileName(filePath) {
-  return filePath.includes("maps") ? filePath.replace("maps/", "") : filePath;
 }

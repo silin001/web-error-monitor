@@ -6,9 +6,5 @@ declare class SourceMapUploaderWebpack {
     apply(compiler: any): void;
 }
 /** 支持vite 源码文件上传 */
-export declare const sourceMapUploaderVite: (options: SourceMapUploaderType) => VitePluginsType;
-declare const _default: {
-    sourceMapUploaderVite: (options: SourceMapUploaderType) => VitePluginsType;
-    SourceMapUploaderWebpack: typeof SourceMapUploaderWebpack;
-};
-export default _default;
+declare const sourceMapUploaderVite: (options: SourceMapUploaderType) => VitePluginsType;
+export { sourceMapUploaderVite, SourceMapUploaderWebpack };
