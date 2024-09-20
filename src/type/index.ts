@@ -1,8 +1,14 @@
 /** vite插件类型 */
-export type VitePluginZipPackType = {
+export type VitePluginsType = {
   name: string;
   apply: "build";
   closeBundle: () => void;
+};
+
+/* source map上传参数类型 */
+export type SourceMapUploaderType = {
+  uploadURL: string; // source map上传接口
+  enable?: boolean;
 };
 
 /** 数据上报主类 options 参数 */
@@ -12,12 +18,10 @@ export type ErrorReportType = {
   module: string; // 属于那个项目
 };
 
-/** 打包指定文件夹为.zip 函数参数字段类型 */
-export type DirToZipFunType = {
-  optZipName: string; // 打包目录名称
-  isPushVx?: boolean; // 是否开启微信推送
-  xtsToken?: string; // 虾推啥 token
-  enable?: boolean; // 是否禁用
-  targetDir?: string; // 目标目录
-  isPackagingTime?: boolean; // 目录名称是否显示打包时间
-};
+// 假设 httpPost 函数的返回类型
+export interface ApiResponse {
+  code: number;
+  data: {
+    msg?: string;
+  };
+}

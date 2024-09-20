@@ -1,8 +1,12 @@
 /** vite插件类型 */
-export type VitePluginZipPackType = {
+export type VitePluginsType = {
     name: string;
     apply: "build";
     closeBundle: () => void;
+};
+export type SourceMapUploaderType = {
+    uploadURL: string;
+    enable?: boolean;
 };
 /** 数据上报主类 options 参数 */
 export type ErrorReportType = {
@@ -10,12 +14,9 @@ export type ErrorReportType = {
     vue: object;
     module: string;
 };
-/** 打包指定文件夹为.zip 函数参数字段类型 */
-export type DirToZipFunType = {
-    optZipName: string;
-    isPushVx?: boolean;
-    xtsToken?: string;
-    enable?: boolean;
-    targetDir?: string;
-    isPackagingTime?: boolean;
-};
+export interface ApiResponse {
+    code: number;
+    data: {
+        msg?: string;
+    };
+}

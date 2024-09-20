@@ -1,6 +1,16 @@
 declare const test = "=======>  typescript  plugin-zip-pack...";
 declare const deepClone: (obj: Object) => object;
 
+/** vite插件类型 */
+type VitePluginsType = {
+    name: string;
+    apply: "build";
+    closeBundle: () => void;
+};
+type SourceMapUploaderType = {
+    uploadURL: string;
+    enable?: boolean;
+};
 /** 数据上报主类 options 参数 */
 type ErrorReportType = {
     reportApi: string;
@@ -49,4 +59,7 @@ declare class ErrorReport {
     promiseError(): void;
 }
 
-export { ErrorReport, deepClone, formatErrorDatas, test };
+/** 支持vite 源码文件上传 */
+declare const sourceMapUploaderVite: (options: SourceMapUploaderType) => VitePluginsType;
+
+export { ErrorReport, deepClone, formatErrorDatas, sourceMapUploaderVite, test };

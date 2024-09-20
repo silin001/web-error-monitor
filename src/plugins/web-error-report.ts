@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-09-18 16:11:58
- * @LastEditTime: 2024-09-18 17:32:29
+ * @LastEditTime: 2024-09-19 11:25:20
  * @Description:错误监控处理
  * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/src/plugins/web-error-report.ts
  */
@@ -84,9 +84,6 @@ export class ErrorReport {
    */
   reportViaImg(datas) {
     const img = new Image(1, 1);
-    // 服务接口
-    // '/sem' // 简称（系统错误监控 System Error Monitoring）
-    // nginx已经 匹配 /sem  代理到：http://127.0.0.1:4000/sem
     const url = this.reportApi;
     img.src = url + JSON.stringify(datas);
   }
