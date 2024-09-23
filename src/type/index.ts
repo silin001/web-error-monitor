@@ -16,6 +16,7 @@ export type ErrorReportType = {
   reportApi: string; // 上报接口 api
   vue: object; // vue实力
   module: string; // 属于那个项目
+  packingMethod: string; // 打包方式
 };
 
 // 假设 httpPost 函数的返回类型

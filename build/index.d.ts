@@ -16,25 +16,14 @@ type ErrorReportType = {
     reportApi: string;
     vue: object;
     module: string;
+    packingMethod: string;
 };
 
-/**
- * @description: 格式化错误信息
- * @param {*} type
- * @param {*} message
- * @param {*} stack
- * @return {*}
- */
-declare function formatErrorDatas(type: any, message: any, stack: any): {
-    errorType: any;
-    message: any;
-    stack: any;
-    date: string;
-};
 declare class ErrorReport {
     options: any;
     reportApi: any;
     vueExample: any;
+    packingMethod: any;
     constructor(options: ErrorReportType);
     init(): void;
     /**
@@ -58,14 +47,28 @@ declare class ErrorReport {
     jsError(): void;
     promiseError(): void;
 }
+/**
+ * @description: 格式化错误信息
+ * @param {*} type
+ * @param {*} message
+ * @param {*} stack
+ * @return {*}
+ */
+declare function formatErrorDatas(packingMethod: any, type: any, message: any, stack: any): {
+    packingMethod: any;
+    errorType: any;
+    message: any;
+    stack: any;
+    date: string;
+};
 
 /** 支持webpack打包后产物类插件 */
 declare class SourceMapUploaderWebpack {
     private options;
-    constructor(options: SourceMapUploaderType);
+    constructor(options?: SourceMapUploaderType);
     apply(compiler: any): void;
 }
 /** 支持vite 源码文件上传 */
-declare const sourceMapUploaderVite: (options: SourceMapUploaderType) => VitePluginsType;
+declare const sourceMapUploaderVite: (options?: SourceMapUploaderType) => VitePluginsType;
 
 export { ErrorReport, SourceMapUploaderWebpack, deepClone, formatErrorDatas, sourceMapUploaderVite, test };

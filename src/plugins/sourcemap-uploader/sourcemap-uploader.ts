@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-09-16 09:40:12
- * @LastEditTime: 2024-09-20 14:26:08
+ * @LastEditTime: 2024-09-23 14:48:19
  * @Description: SourceMap 源码文件上传、导出支持webpack、vite的产物
  * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/src/plugins/sourcemap-uploader/sourcemap-uploader.ts
  */
@@ -97,6 +97,8 @@ async function moveFileIfExists(oldPath, newPath) {
  * @description: source-map文件上传
  * @param {*} assets 产出 map文件
  * @param {*} outputPath 输出路径
+ * @param {*} uploadURL 上传源码文件 api
+ * @param {*} storageDir 上传源码文件到服务端指定目录
  * @return {*}
  */
 export const sourceUpload = async (
@@ -113,6 +115,7 @@ export const sourceUpload = async (
     storageDir,
   };
   try {
+    // 调用上传源码接口
     const result = (await httpPost(uploadURL, params)) as ApiResponse;
     console.log("上传完成->", result);
     if (result.code === 200) {

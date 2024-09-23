@@ -13,6 +13,7 @@ export type ErrorReportType = {
     reportApi: string;
     vue: object;
     module: string;
+    packingMethod: string;
 };
 export interface ApiResponse {
     code: number;

@@ -13,6 +13,8 @@ export declare class SourceMapHandler {
  * @description: source-map文件上传
  * @param {*} assets 产出 map文件
  * @param {*} outputPath 输出路径
+ * @param {*} uploadURL 上传源码文件 api
+ * @param {*} storageDir 上传源码文件到服务端指定目录
  * @return {*}
  */
 export declare const sourceUpload: (assets: any, outputPath: any, uploadURL: any, storageDir: any) => Promise<void>;

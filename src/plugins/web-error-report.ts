@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-09-18 16:11:58
- * @LastEditTime: 2024-09-19 11:25:20
- * @Description:错误监控处理
+ * @LastEditTime: 2024-09-23 15:21:54
+ * @Description: 错误监控信息处理、上报
  * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/src/plugins/web-error-report.ts
  */
 
@@ -9,39 +9,24 @@ import { ErrorReportType } from "../type/index";
 import TraceKit from "tracekit";
 import { getCurrentTime } from "../utils/tools";
 
-/**
- * @description: 格式化错误信息
- * @param {*} type
- * @param {*} message
- * @param {*} stack
- * @return {*}
- */
-export function formatErrorDatas(type, message, stack) {
-  const errorTypes = {
-    1: "jsError",
-    2: "resourceError",
-    3: "vueError",
-    4: "httpError",
-  };
-  const obj = {
-    errorType: errorTypes[type],
-    message,
-    stack,
-    date: getCurrentTime(),
-  };
-  return obj;
-}
 
-/* 主类，必须接收一个 Vue实例  */
+
+/*
+错误捕获主类（在项目入口文件 main.js中使用）
+必须接收一个 Vue实例
+上报reportApi
+*/
 export class ErrorReport {
   options;
-  reportApi;
-  vueExample;
+  reportApi; // 错误上报接口
+  vueExample; // vue实例
+  packingMethod; // 打包方式
   constructor(options: ErrorReportType) {
     this.options = options;
     // "/sem/sourcemap/img?data=";
     this.reportApi = options.reportApi;
     this.vueExample = options.vue;
+    this.packingMethod = options.packingMethod;
     console.log("项目分类---", options.module);
     this.init();
   }
@@ -60,7 +45,7 @@ export class ErrorReport {
     TraceKit.report.subscribe((errorReport) => {
       console.log("TraceKit格式化后错误信息=", errorReport);
       const { message, stack } = errorReport || {};
-      if (!stack.length || !message) {
+      if (!stack?.length || !message) {
         console.log("没有stack信息，不使用TraceKit处理错误");
         return false;
       }
@@ -71,7 +56,7 @@ export class ErrorReport {
         func: stack[0].func,
       };
       // vue、js错误
-      const datas = formatErrorDatas(3, message, stacks);
+      const datas = formatErrorDatas(this.packingMethod ,3, message, stacks);
       // 上报
       this.reportViaImg(datas);
     });
@@ -84,7 +69,7 @@ export class ErrorReport {
    */
   reportViaImg(datas) {
     const img = new Image(1, 1);
-    const url = this.reportApi;
+    const url = this.reportApi; // 错误上报接口
     img.src = url + JSON.stringify(datas);
   }
 
@@ -176,7 +161,7 @@ export class ErrorReport {
           const msg = `资源错误:在[${obj.routePath}]路由中发现,值为[${obj.path}]`;
 
           // 上报资源错误数据
-          this.reportViaImg(formatErrorDatas(2, msg, obj));
+          this.reportViaImg(formatErrorDatas(this.packingMethod,2, msg, obj));
         } else {
           console.log("非资源加载错误", event);
         }
@@ -240,6 +225,34 @@ export class ErrorReport {
       true
     );
   }
+}
+
+
+
+
+
+/**
+ * @description: 格式化错误信息
+ * @param {*} type
+ * @param {*} message
+ * @param {*} stack
+ * @return {*}
+ */
+export function formatErrorDatas(packingMethod, type, message, stack) {
+  const errorTypes = {
+    1: "jsError",
+    2: "resourceError",
+    3: "vueError",
+    4: "httpError",
+  };
+  const obj = {
+    packingMethod, // 打包方式
+    errorType: errorTypes[type],
+    message,
+    stack,
+    date: getCurrentTime(),
+  };
+  return obj;
 }
 
 export default {

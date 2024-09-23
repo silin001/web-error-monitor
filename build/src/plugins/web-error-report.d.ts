@@ -1,21 +1,9 @@
 import { ErrorReportType } from "../type/index";
-/**
- * @description: 格式化错误信息
- * @param {*} type
- * @param {*} message
- * @param {*} stack
- * @return {*}
- */
-export declare function formatErrorDatas(type: any, message: any, stack: any): {
-    errorType: any;
-    message: any;
-    stack: any;
-    date: string;
-};
 export declare class ErrorReport {
     options: any;
     reportApi: any;
     vueExample: any;
+    packingMethod: any;
     constructor(options: ErrorReportType);
     init(): void;
     /**
@@ -39,6 +27,20 @@ export declare class ErrorReport {
     jsError(): void;
     promiseError(): void;
 }
+/**
+ * @description: 格式化错误信息
+ * @param {*} type
+ * @param {*} message
+ * @param {*} stack
+ * @return {*}
+ */
+export declare function formatErrorDatas(packingMethod: any, type: any, message: any, stack: any): {
+    packingMethod: any;
+    errorType: any;
+    message: any;
+    stack: any;
+    date: string;
+};
 declare const _default: {
     ErrorReport: typeof ErrorReport;
 };

@@ -1,41 +1,38 @@
 # 插件简介
 
-`plugin-zip-pack` 源码使用 ts 编写（1.0.17 版本前 js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包。
+`` 源码使用 ts 编写（1.0.17 版本前 js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包。
 
 - 新增打包结果推送消息到微信（需关注虾推啥公众号、获取 token）
 
 # 安装
 
-推荐 `pnpm install plugin-zip-pack -D`
+推荐 `pnpm web-error-tracker`
 
-`npm install plugin-zip-pack -D`
+`npm web-error-tracker'`
 
 # 参数配置
 
 ```javascript
 
  {
-  optZipName: '测试包', // 必传参数，打包名称，
-  targetDir: '', // 可选参数，需要打包的目录（必须传入存在的目录），默认 dist
+  uploadURL: '测试包', // 必传参数，需要上传源码文件接口
   enable: true, // 可选参数，插件是否开启，默认true开启
-  isPushVx: false, // 可选参数，打包完成是否推送消息到微信（需配合 xtsToken使用），默认false
-  xtsToken: '', // 可选参数， 推送微信需要的公众号token
  },
 
 ```
 
-# 使用（1.0.17 版本）
+# 使用
 
 - vite
 
 ```javascript
 // vite.config.js
-const { pluginZipPackVite } = require("plugin-zip-pack");
-// import { pluginZipPackVite } from 'plugin-zip-pack'
+import { sourceMapUploaderVite } from "web-error-tracker";
+
 export default defineConfig({
   plugins: [
-    pluginZipPackVite({
-      optZipName: "测试包",
+    sourceMapUploaderVite({
+      uploadURL: "xxx/sourcemap/upload",
     }),
   ],
 });
@@ -43,56 +40,24 @@ export default defineConfig({
 
 - webpack
 
+必须在配置文件配置 output 打包 .js.map 文件生成到 dist 同级目录，名称为： dist-jsmaps 的目录下。因为插件内部对这个目录进行了处理。
+
 ```javascript
 // webpack.config.js
-const { PluginZipPackWebpack } = require("plugin-zip-pack");
+const { SourceMapUploaderWebpack } = require("web-error-tracker");
 
 module.exports = {
   configureWebpack: {
     plugins: [
-      new PluginZipPackWebpack({
-        optZipName: "xxxpc端",
+      new SourceMapUploaderWebpack({
+        uploadURL: "xxx/sourcemap/upload",
       }),
+      ,
     ],
     output: {
       // 指定打包 jsmap文件到
       sourceMapFilename: "../dist-jsmaps/[name].js.map",
     },
-  },
-};
-```
-
-# 使用（1.0.17 版本前）
-
-- vite
-
-```javascript
-// vite.config.js
-const { vitePluginZipPack } = require("plugin-zip-pack");
-export default defineConfig({
-  plugins: [
-    vitePluginZipPack({
-      optZipName: "测试包",
-      targetDir: "public",
-      enable: false,
-    }),
-  ],
-});
-```
-
-- webpack
-
-```javascript
-// webpack.config.js
-const { WebpackPluginZipPack } = require("plugin-zip-pack");
-
-module.exports = {
-  configureWebpack: {
-    plugins: [
-      new WebpackPluginZipPack({
-        optZipName: "xxxpc端",
-      }),
-    ],
   },
 };
 ```
