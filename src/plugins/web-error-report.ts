@@ -1,11 +1,11 @@
 /*
  * @Date: 2024-09-18 16:11:58
- * @LastEditTime: 2024-09-23 15:21:54
+ * @LastEditTime: 2024-09-25 10:20:23
  * @Description: 错误监控信息处理、上报
  * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/src/plugins/web-error-report.ts
  */
 
-import { ErrorReportType } from "../type/index";
+import { ErrorReportType,StackType } from "../type/index";
 import TraceKit from "tracekit";
 import { getCurrentTime } from "../utils/tools";
 
@@ -46,14 +46,15 @@ export class ErrorReport {
       console.log("TraceKit格式化后错误信息=", errorReport);
       const { message, stack } = errorReport || {};
       if (!stack?.length || !message) {
-        console.log("没有stack信息，不使用TraceKit处理错误");
+        console.log("没有stack信息、不使用TraceKit处理错误。");
         return false;
       }
-      const stacks = {
+      // 收集需要的堆栈信息
+      const stacks: StackType = {
         column: stack[0].column,
         line: stack[0].line,
         url: stack[0].url,
-        func: stack[0].func,
+        func: stack[0].func, // 调用函数
       };
       // vue、js错误
       const datas = formatErrorDatas(this.packingMethod ,3, message, stacks);

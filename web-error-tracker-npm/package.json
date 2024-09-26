@@ -1,23 +1,21 @@
 {
-  "name": "plugin-zip-pack",
-  "version": "1.0.18",
-  "description": "ts实现用于项目build阶段压缩指定目录资源为.zip包",
+  "name": "web-error-tracker",
+  "version": "1.0.0",
+  "description": "ts实现前端项目源码上传、错误信息监控",
   "main": "index.umd.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/silin001/zip-pack"
+    "url": "https://github.com/silin001/web-error-tracker"
   },
   "keywords": [
-    "plugin-zip-pack",
-    "pack",
-    "zip",
-    "zip-pack"
+    "web-error-tracker",
+    "web-error",
+    "tracker"
   ],
   "author": "sisi",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.0.0",
-    "jszip": "^3.10.1"
+    "chalk": "^4.0.0"
   }
 }

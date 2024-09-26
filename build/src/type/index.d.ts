@@ -21,3 +21,9 @@ export interface ApiResponse {
         msg?: string;
     };
 }
+export type StackType = {
+    column: number;
+    line: number;
+    url: string;
+    func: string;
+};

@@ -26,3 +26,11 @@ export interface ApiResponse {
     msg?: string;
   };
 }
+
+// 假设 httpPost 函数的返回类型
+export type StackType = {
+  column: number; // 列
+  line: number; // 行
+  url: string;
+  func: string;
+};

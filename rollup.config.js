@@ -18,10 +18,10 @@ import { readFileSync } from 'fs';
 const pkg = JSON.parse(readFileSync('package.json', { encoding:'utf8' }))
 
 // 一段自定义的内容，以下内容会添加到打包结果中
-const footer = `
-if(typeof window !== 'undefined') {
-  window.ZipPack_VERSION_ = '${pkg.version}'
-}`
+// const footer = `
+// if(typeof window !== 'undefined') {
+//   window.ZipPack_VERSION_ = '${pkg.version}'
+// }`
 
 export default [
   {
@@ -32,8 +32,7 @@ export default [
         file: pkg.main, // 打包出口
         // umd是兼容 cjs/esm/iife/amd/cmd/ 的通用打包格式
         format: 'umd',
-        footer,
-        name: 'ZipPack', // 指定打包后的全局变量名
+        name: 'WebErrorTracker', // 指定打包后的全局变量名
         // sourcemap: true,
         globals: {
           // 你的模块名: 全局变量名
@@ -49,22 +48,6 @@ export default [
           'node:tty': 'tty'
         },
       },
-      // {
-      //   file: pkg.module,
-      //   format: 'esm', // 规范(import)
-      //   footer,
-      // },
-      // {
-      // // file: 'build/index.js',
-      //   file: pkg.main,
-      //   format: 'cjs', // CommonJS 规范（require）
-      //   footer,
-      // },
-      // {
-      //   file: pkg.browser,
-      //   format: 'iife', // 适用于浏览器
-      //   footer,
-      // },
     ],
     plugins: [
       json(),
