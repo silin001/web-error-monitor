@@ -21,6 +21,8 @@
 
 设置 npm 源为阿里云镜像： `npm config set registry https://registry.npmmirror.com`
 
+
+
 # 打包相关
 
 ## 本地打包调试
@@ -33,7 +35,30 @@
 
 build 文件夹下需要 package.json 文件，不需要打包时的一些依赖，只保留核心依赖即可。
 
-## 打包方式 1（不使用 rollup，体积小，推荐）
+
+## 打包方式 1（使用 rollup 打包）
+
+可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd 格式。
+
+### 最终发布 npm 包打包命令：`pnpm build`
+
+需要先切换到根目录然后执行： `pnpm build`
+
+执行命令后执行脚本顺序：
+
+- set:npmsource （查看当前 npm 源、设置 npm 源为 npm 镜像）
+- rollup -c rollup.config.js （使用 rollup 打包，因为使用了插件所以 rollup -c 时会打包出 ts 的类型文件）
+
+- pnpm build:cp （使用 node 执行本地 ./script/rollup-build.js 脚本，复制 build 目录的一些产物到 web-error-traceker-npm 最终要发布到npm官网目录）
+
+- pnpm build:publish （先 cd 到 xxx-npm 要发布npm官网到目录， 然后在该目录执行 npm login 登录、输入用户名（我的： sisi001 ）、然后密码 (此时需要查看手机的 otp 6 位数验证码)、 npm publish 发布、然后再 cd 上级目录 还原设置 npm 源为淘宝镜像）
+
+
+如果发布失败了 记得手动将 `web-error-report`目录下的 package.json 的版本号退回，因为在打包命令里配置了每次打包版本号+1
+
+
+
+## 打包方式 2（不使用 rollup，体积小）
 
 ps：目前该插件实现功能简单，使用 rollup 打包后体积反而会比源码文件大，所以直接源码上传 npm。
 
@@ -53,22 +78,3 @@ ps：目前该插件实现功能简单，使用 rollup 打包后体积反而会�
 ps: lib 目录中 package.json 文件如果后期有依赖更新需要手动更改。
 
 script 目录下的 lib.js 实现是使用 node 模块复制 src、index 文件到 lib 目录
-
-## 打包方式 2（使用 rollup 打包）
-
-可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd 格式。
-
-### 最终发布 npm 包打包命令：`pnpm build`
-
-需要先切换到根目录然后执行： `pnpm build`
-
-执行命令后执行脚本顺序：
-
-- set:npmsource （查看当前 npm 源、设置 npm 源为 npm 镜像）
-- rollup -c rollup.config.js （使用 rollup 打包，因为使用了插件所以 rollup -c 时会打包出 ts 的类型文件）
-
-- pnpm build:cp （使用 node 执行 ./script/rollup-build.js 脚本，复制 build 目录的一些产物到 zip-pack-npm 目录）
-
-- pnpm build:publish （先 cd 到 zip-pack-npm 然后在该目录执行 npm login 登录(此时需要查看手机的 otp 6 位数验证码)、 npm publish 发布、然后再 cd 上级目录 还原设置 npm 源为淘宝镜像）
-
-如果发布失败了 记得手动将 `web-error-report`目录下的 package.json 的版本号退回，因为在打包命令里配置了每次打包版本号+1

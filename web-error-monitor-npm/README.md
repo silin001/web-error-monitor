@@ -1,6 +1,10 @@
 # 插件简介
 
-`web-error-tracker` 源码使用 ts 编写，用于webpack、vite(生产环境暂不支持) build 结束后上传sourcemap文件，用于源码解析，监控前端页面错误，进行错误信息上报。
+`web-error-tracker` 源码使用 ts 编写，用于webpack、vite(生产环境暂不支持) build 结束后上传sourcemap文件，用于源码解析，监控前端页面资源错误时，进行错误信息上报。
+
+- 注意
+
+使用该插件时，需要配合对应的接口服务（接口处理对应源码后，）
 
 # 安装
 

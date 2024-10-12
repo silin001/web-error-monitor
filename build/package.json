@@ -1,15 +1,15 @@
 {
-  "name": "test-web-error-tracker",
+  "name": "web-error-monitor",
   "version": "1.0.0",
   "description": "用于本地调试",
   "main": "index.umd.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/silin001/web-error-tracker"
+    "url": "https://github.com/silin001/web-error-monitor"
   },
   "keywords": [
-    "web-error-tracker",
+    "web-error-monitor",
     "web-error",
     "tracker"
   ],

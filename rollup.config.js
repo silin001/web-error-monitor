@@ -64,9 +64,9 @@ export default [
     ],
     // 标记为外部依赖，不要将其打包进最终的输出文件中
     external: ['node:os', 'node:process', 'node:tty', 'stream', 'buffer', 'events', 'util'],
-    ignore: [
-      "node_modules/**" // 忽略目录
-    ]
+    // ignore: [ // 未被认可的选项
+    //   "node_modules/**" // 忽略目录
+    // ]
   },
   // 生成.d.ts文件
   {

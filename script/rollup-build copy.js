@@ -1,25 +1,18 @@
 /*
- * @Date: 2023-09-22 15:44:59
- * @LastEditTime: 2024-10-12 15:33:04
- * @Description: rollup打包后最终目录：build
- * 使用node脚本发布npm包
- * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/script/rollup-build.js
+ * @Date: 2024-10-12 14:25:50
+ * @LastEditTime: 2024-10-12 14:29:47
+ * @Description: 
+ * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/script/rollup-build copy.js
  */
 
-
-console.log('打包开始构建...');
-import { deleteFileOrFolder, publishPackage, copyFilesFun } from './build-utils.js'
-import fs from 'fs'
-import { resolve, join, dirname } from 'path'
-import { fileURLToPath } from 'url';
-// 获取当前模块的文件路径
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const fs = require('fs');
+const { resolve, join, } = require('path');
+const { deleteFileOrFolder, publishPackage, copyFilesFun } = require('./build-utils')
 
 // // 打包路径
 const sourceFilePath = resolve(__dirname, '../build')
-// 最终要发布为npm的目录  /
-const tarDir = resolve(__dirname, '../web-error-monitor-npm')
+// 最终要发布为npm的目录
+const tarDir = resolve(__dirname, '../web-error-tracker-npm')
 // build 文件夹的所有文件
 const fileList = ['src',  'index.umd.js', 'index.d.ts']
 const sourcePathsList = getAllFile()

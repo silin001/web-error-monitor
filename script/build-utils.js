@@ -1,12 +1,19 @@
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-02-27 17:24:24
+ * @LastEditTime: 2024-10-12 15:01:50
  * @Description: 打包时 rollup-buld使用的方法
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\utils\build.js
+ * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-plugins-project/web-error-tracker/script/build-utils.js
  */
-const fs = require('fs');
-const { exec } = require('child_process');
-const { resolve, join, basename } = require('path')
+
+
+// const fs = require('fs');
+// const { exec } = require('child_process');
+// const { resolve, join, basename } = require('path')
+
+import fs from 'fs'
+import { exec } from 'child_process'
+import { resolve, join, basename } from 'path'
+
 
 /* 删除文件夹或文件 */
 function deleteFileOrFolder (fileOrFolderPath) {
@@ -68,7 +75,14 @@ function publishPackage (newVersion, tarDir) {
   });
 }
 
-module.exports = {
+// module.exports = {
+//   deleteFileOrFolder,
+//   copyFilesFun,
+//   publishPackage
+// }
+
+
+export {
   deleteFileOrFolder,
   copyFilesFun,
   publishPackage

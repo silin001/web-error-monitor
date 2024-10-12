@@ -1,5 +1,5 @@
 {
-  "name": "web-error-tracker",
+  "name": "web-error-monitor",
   "version": "1.0.0",
   "description": "前端错误监控sdk",
   "main": "build/index.umd.js",
@@ -16,17 +16,17 @@
     "lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmtb",
     "build": "rollup -c rollup.config.js && pnpm set:npmsource && pnpm build:cp",
     "build:cp": "node ./script/rollup-build.js && pnpm build:publish",
-    "build:publish": "cd ./web-error-tracker-npm && npm login && npm publish && cd ../ && pnpm setnpmtb",
+    "build:publish": "cd ./web-error-monitor-npm && npm login && npm publish && cd ../ && pnpm setnpmtb",
     "getnpm": "npm config get registry",
     "setnpm": "npm config set registry https://registry.npmjs.org/",
     "setnpmtb": "npm config set registry https://registry.npmmirror.com/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/silin001/web-error-tracker"
+    "url": "https://github.com/silin001/web-error-monitor"
   },
   "keywords": [
-    "web-error-tracker",
+    "web-error-monitor",
     "web-error",
     "tracker"
   ],
