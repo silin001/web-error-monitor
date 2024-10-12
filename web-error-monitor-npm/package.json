@@ -1,6 +1,6 @@
 {
   "name": "web-error-monitor",
-  "version": "0.0.5",
+  "version": "0.0.1",
   "description": "ts实现前端项目源码上传、错误信息监控",
   "main": "index.umd.js",
   "types": "index.d.ts",

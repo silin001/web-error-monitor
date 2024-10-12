@@ -51,10 +51,10 @@ build 文件夹下需要 package.json 文件，不需要打包时的一些依赖
 
 - pnpm build:cp （使用 node 执行本地 ./script/rollup-build.js 脚本，复制 build 目录的一些产物到 web-error-traceker-npm 最终要发布到npm官网目录）
 
-- pnpm build:publish （先 cd 到 xxx-npm 要发布npm官网到目录， 然后在该目录执行 npm login 登录、输入用户名（我的： sisi001 ）、然后密码 (此时需要查看手机的 otp 6 位数验证码)、 npm publish 发布、然后再 cd 上级目录 还原设置 npm 源为淘宝镜像）
+- pnpm build:publish （先 cd 到 xxx-npm 要发布npm官网到目录，注意这里进入后就不能使用根目录 dev、getnpm 等指令了， 然后在该目录执行 npm login 登录、输入用户名（我的： sisi001 ）、然后密码 (此时需要查看手机的 otp 6 位数验证码)、 npm publish 发布、然后再 cd 上级目录 还原设置 npm 源为淘宝镜像）
 
 
-如果发布失败了 记得手动将 `web-error-report`目录下的 package.json 的版本号退回，因为在打包命令里配置了每次打包版本号+1
+如果发布失败了 记得手动将 `web-error-monitor`目录下的 package.json 的版本号退回，因为在打包命令里配置了每次打包版本号+1
 
 
 
